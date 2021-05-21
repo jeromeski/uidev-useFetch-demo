@@ -7,34 +7,21 @@ function useFetch(url) {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true);
 
-  const fetchApi = async () => {
-    try {
-      const res = await fetch(url).then((res) => res.json())
-      setData(res)
-      setLoading(false)
-      setError(null)
-    } catch(error) {
-      setError('There is a problem');
-      console.warn(error.message)
-    }
-  }
 
   useEffect(() => {
     setLoading(true)
-    // fetch(url)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setLoading(false);
-    //     setData(data);
-    //     setError(null);
-    //   }).catch(err => {
-    //     console.warn(err.message)
-    //     setError(err.message);
-    //     setLoading(false);
-    //   })
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setLoading(false);
+        setData(data);
+        setError(null);
+      }).catch(err => {
+        console.warn(err.message)
+        setError(err.message);
+        setLoading(false);
+      })
 
-    
-    fetchApi()
   },[url])
 
   return {
@@ -57,7 +44,7 @@ export default function App() {
     setIndex(index => index === postIds.length - 1 ? index : index + 1)
   }
 
-  console.log(post)
+  console.count('Render')
 
   if(loading) {
     return <p>Loading...</p>
